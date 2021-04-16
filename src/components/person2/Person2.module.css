@@ -1,0 +1,11 @@
+.person{
+    background-color: aqua;
+}
+
+.teest {
+    color: red;
+}
+
+.hovertest:hover{
+    color: yellow
+}
