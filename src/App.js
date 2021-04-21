@@ -65,44 +65,8 @@ function App() {
 
   return (
     <div className="App">
-      <h1 className="person">This is the app component</h1>
-
-      {/* <Person name="hamza" age="23">additional content</Person> */}
-
-      <TestIfContext.Provider value={{
-        testIf: personState.testIf,
-        showIfTest: showIfTest
-      }}>
-        <Person2
-          name={personState.persons[0].name}
-          age={personState.persons[0].age}
-          click={onClickButton}
-          changed={onNameChange}
-        ></Person2>
-
-        <Person2
-          name={personState.persons[1].name}
-          age={personState.persons[1].age}
-          click={onClickButton}
-          changed={onNameChange}
-        ></Person2>
-      </TestIfContext.Provider>
-
-      <button onClick={showState}>show state</button>
-
-      {/* <button ref={buttonTestIfRef} onClick={showIfTest}>show if test</button> */}
-
-      {/* <Person2 name={personState.persons[1].name} age={personState.persons[1].age}></Person2> */}
-      {/* <Person /> */}
-
-      {/* { personState.testIf ?
-        <TestIf /> : null
-      } */}
-
       <h2>-------------- Redux --------------</h2>
-
       <Counter />
-
     </div>
   );
 }
