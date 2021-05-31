@@ -1,6 +1,7 @@
 import './App.css';
 
 import React, { useState, useEffect, useRef, useContext } from 'react';
+import axios from 'axios';
 
 // import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
@@ -63,6 +64,33 @@ function App() {
     console.log(personState);
   };
 
+  const addUser = () => {
+    console.log("add user");
+    axios.post('http://localhost:8080/auth/admin/realms/Ebanking-realm/users', {
+      username: "test-user",
+      lastName: "test",
+      firstName: "joe",
+      email: "test@mail.de",
+      attributes: {
+        test: "attr"
+      },
+      enabled: true,
+      credentials: [
+        {
+          type: "password",
+          value: "test",
+          temporary: false
+        }
+      ]
+    })
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
   return (
     <div className="App">
       <h1 className="person">This is the app component</h1>
@@ -103,8 +131,15 @@ function App() {
 
       <Counter />
 
+
+      <h2>-------------- add user --------------</h2>
+      <button onClick={addUser}>add user</button>
+
+
     </div>
   );
+
+
 }
 
 export default App;
