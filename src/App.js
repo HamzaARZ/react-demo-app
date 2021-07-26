@@ -93,7 +93,6 @@ function App() {
 
   return (
     <div className="App">
-      <h1>V2</h1>
       <h1 className="person">This is the app component</h1>
 
       {/* <Person name="hamza" age="23">additional content</Person> */}
