@@ -4,19 +4,19 @@ const initialState = {
     result: []
 };
 
-const deleteResult = (state, action) => {
-    const newResults = [...state.result];
-    newResults.splice(action.index, 1);
-    return{
-        ...state,
-        result: newResults
-    }
-}
+// const deleteResult = (state, action) => {
+//     const newResults = [...state.result];
+//     newResults.splice(action.index, 1);
+//     return {
+//         ...state,
+//         result: newResults
+//     }
+// }
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.STORE_RESULT:
-            return{
+            return {
                 ...state,
                 // concat creats a new array than add the new item
                 result: state.result.concat(action.counter)
@@ -27,14 +27,16 @@ const reducer = (state = initialState, action) => {
 
             const newResults = [...state.result];
             newResults.splice(action.index, 1);
-            return{
+            return {
                 ...state,
                 result: newResults
             }
-            // return deleteResult (state, action);
+        // return deleteResult (state, action);
+        default:
+            return state;
+            
     }
 
-    return state;
 };
 
 export default reducer;

@@ -1,4 +1,4 @@
-import react, { Fragment, useContext } from 'react';
+import React, { Fragment, useContext } from 'react';
 import PropTypes from 'prop-types';
 
 import classes from './Person2.module.css';
@@ -12,15 +12,7 @@ const Person2 = props => {
 
     const testIfContext = useContext(TestIfContext);
 
-    const onClickButton = () => {
-    };
 
-
-    const buttonStyles = {
-        cursor: "pointer",
-        "background-color": "green"
-        // backgroundColor: "red"
-    }
     const classestest = [];
 
     classestest.push(classes.teest);

@@ -1,28 +1,20 @@
 import './App.css';
 
-import React, { useState, useEffect, useRef, useContext } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
 
+import { Route, BrowserRouter as Router, Switch, NavLink } from 'react-router-dom';
 // import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 
-import Person from './components/person/Person';
 import Person2 from './components/person2/Person2';
-import TestIf from './components/TestIf/TestIf';
 import TestIfContext from './context/testIf-context';
 import Counter from './containers/Counter/Counter';
+import Users from './containers/users/Users';
+import About from './containers/users/About';
 
 
-function App() {
 
-  const buttonTestIfRef = useRef(null);
-
-
-  // useEffect(() => {
-  //   buttonTestIfRef.current.click();
-  // }, []);
-
-
+const App = () => {
   const [personState, setPersonState] = useState({
     persons: [
       { name: 'hamza', age: 23 },
@@ -31,7 +23,8 @@ function App() {
     testIf: false
   });
 
-  const [otherState, setOtherState] = useState("other values");
+  const [toggle, setToggle] = useState(false);
+
 
   const onClickButton = (newName) => {
     setPersonState({
@@ -64,79 +57,88 @@ function App() {
     console.log(personState);
   };
 
-  const addUser = () => {
-    console.log("add user");
-    axios.post('http://localhost:8080/auth/admin/realms/Ebanking-realm/users', {
-      username: "test-user",
-      lastName: "test",
-      firstName: "joe",
-      email: "test@mail.de",
-      attributes: {
-        test: "attr"
-      },
-      enabled: true,
-      credentials: [
-        {
-          type: "password",
-          value: "test",
-          temporary: false
-        }
-      ]
-    })
-      .then(response => {
-        console.log(response);
-      })
-      .catch(error => {
-        console.log(error);
-      });
+  const toggleLink = () => {
+    setToggle(!toggle);
   }
 
   return (
-    <div className="App">
-      <h1 className="person">This is the app component</h1>
+    <>
 
-      {/* <Person name="hamza" age="23">additional content</Person> */}
+      {/* routing */}
 
-      <TestIfContext.Provider value={{
-        testIf: personState.testIf,
-        showIfTest: showIfTest
-      }}>
-        <Person2
-          name={personState.persons[0].name}
-          age={personState.persons[0].age}
-          click={onClickButton}
-          changed={onNameChange}
-        ></Person2>
+      <Router>
+        <Switch>
+          <Route path="/users">
+            <Users />
+          </Route>
 
-        <Person2
-          name={personState.persons[1].name}
-          age={personState.persons[1].age}
-          click={onClickButton}
-          changed={onNameChange}
-        ></Person2>
-      </TestIfContext.Provider>
+          <Route path="/about">
+            <About />
+          </Route>
 
-      <button onClick={showState}>show state</button>
+        </Switch>
 
-      {/* <button ref={buttonTestIfRef} onClick={showIfTest}>show if test</button> */}
+        {/* <NavLink to="/users">
+          Users Link
 
-      {/* <Person2 name={personState.persons[1].name} age={personState.persons[1].age}></Person2> */}
-      {/* <Person /> */}
+        </NavLink> */}
+        <NavLink
+          onClick={toggleLink}
+          to={
+            { pathname: toggle ? "/": "/users", userProps: "props..." }
+          }
+        >
+          Users Link
+        </NavLink>
 
-      {/* { personState.testIf ?
+      </Router>
+
+
+
+      {/* /routing */}
+
+      <div className="App">
+        <h1 className="person">This is the app component</h1>
+
+        {/* <Person name="hamza" age="23">additional content</Person> */}
+
+        <TestIfContext.Provider value={{
+          testIf: personState.testIf,
+          showIfTest: showIfTest
+        }}>
+          <Person2
+            name={personState.persons[0].name}
+            age={personState.persons[0].age}
+            click={onClickButton}
+            changed={onNameChange}
+          ></Person2>
+
+          <Person2
+            name={personState.persons[1].name}
+            age={personState.persons[1].age}
+            click={onClickButton}
+            changed={onNameChange}
+          ></Person2>
+        </TestIfContext.Provider>
+
+        <button onClick={showState}>show state</button>
+
+        {/* <button ref={buttonTestIfRef} onClick={showIfTest}>show if test</button> */}
+
+        {/* <Person2 name={personState.persons[1].name} age={personState.persons[1].age}></Person2> */}
+        {/* <Person /> */}
+
+        {/* { personState.testIf ?
         <TestIf /> : null
       } */}
 
-      <h2>-------------- Redux --------------</h2>
+        <h2>-------------- Redux --------------</h2>
 
-      <Counter />
-
-
-      <h2>-------------- add user --------------</h2>
-      <button onClick={addUser}>add user</button>
+        <Counter />
 
 
-    </div>
+      </div>
+    </>
   );
 
 
